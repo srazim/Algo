@@ -14,6 +14,21 @@ public class HuffmanTree
 	
 	Bits daBits = new Bits();
 	
+	public HuffmanTree(int[] freqs, byte[] data)
+	{
+		for(int i = 0; i< freqs.length; i++)
+		{
+			bytes.add(data[i]);
+			FrequencyNode temp = new FrequencyNode();
+			temp.bytes.add((byte)(i-128));
+			temp.count = freqs[i];
+			nodes.add(temp);
+			queuedNodes.add(temp);
+		}
+		
+		buildTree();
+	}
+	
 	public HuffmanTree(byte[] data)
 	{
 		getFrequencies(data);

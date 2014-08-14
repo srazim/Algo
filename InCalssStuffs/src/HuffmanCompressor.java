@@ -39,6 +39,8 @@ public class HuffmanCompressor
 		return bytesToReturn;
 		
 	}
+	
+	
 	public byte[] decompress(HuffmanTree tree, int uncompressedLength, byte[] b)
 	{
 		byte[] messageToReturn = new byte[uncompressedLength];
