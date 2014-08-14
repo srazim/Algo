@@ -94,7 +94,7 @@ public class HuffmanTree
 	public void fromByte(byte b, Bits bits)
 	{
 		fromByteHelper(b, bits, root);
-		System.out.println(bits);
+		//System.out.println(bits);
 
 	}
 	

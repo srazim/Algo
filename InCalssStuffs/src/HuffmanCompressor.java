@@ -31,7 +31,7 @@ public class HuffmanCompressor
 		for(int i = 0; i < bytesToReturn.length; i++)
 		{
 			String test = strang.substring(i * 8, (i * 8) + 8);
-			System.out.println(test);
+			//System.out.println(test);
 			
 			bytesToReturn[i] = Byte.valueOf( (byte)Integer.parseInt( test, 2) );
 		}
@@ -48,7 +48,7 @@ public class HuffmanCompressor
 		for (byte myByte : b){
 			String strang = Integer.toBinaryString(myByte & 255 | 256).substring(1);
 			
-			System.out.println(strang);
+			//System.out.println(strang);
 			
 			for(int i = 0; i < strang.length(); i++)
 			{
