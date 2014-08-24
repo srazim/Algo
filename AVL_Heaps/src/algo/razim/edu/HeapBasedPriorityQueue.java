@@ -24,4 +24,9 @@ public class HeapBasedPriorityQueue<T extends Comparable<T>>
 	{
 		return myHeap.peek();
 	}
+	
+	public int size()
+	{
+		return myHeap.size();
+	}
 }

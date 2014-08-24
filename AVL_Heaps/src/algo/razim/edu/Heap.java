@@ -36,21 +36,21 @@ public class Heap<T extends Comparable<T>>
 	
 	public void insert(T value)
 	{
-		/*if(tailIndex + 1 >= 2 * (maBytes.length/3))
+		if(tailIndex + 1 >= 2 * (myHeap.length/3))
 		{
-			byte[] copy = new byte[maBytes.length];
-			for(int i = 0; i < maBytes.length; i++)
+			T[] copy = (T[]) (new Comparable[myHeap.length]);
+			for(int i = 0; i < myHeap.length; i++)
 			{
-				copy[i] = maBytes[i];
+				copy[i] = myHeap[i];
 			}
 			
-			maBytes = new byte[maBytes.length * 2];
+			myHeap =  (T[]) (new Comparable[myHeap.length * 2]);
 			
 			for(int i = 0; i < copy.length; i++)
 			{
-				maBytes[i] = copy[i];
+				myHeap[i] = copy[i];
 			}
-		}*/
+		}
 		
 		myHeap[tailIndex] = value;
 		heapify(tailIndex);
@@ -83,13 +83,18 @@ public class Heap<T extends Comparable<T>>
 			
 	}
 	
+	private boolean childrenAreEqual(int indexOfValue)
+	{
+		return myHeap[indexOfValue * 2].compareTo(myHeap[(indexOfValue * 2) + 1]) == 0;
+	}
+	
 	private int getIndexOfGreaterChild(int indexOfValue)
 	{
 		int indexToReturn = -1;
 		
 		if((indexOfValue * 2) + 1 < tailIndex)
 		{
-			if(myHeap[indexOfValue * 2].compareTo(myHeap[(indexOfValue * 2) + 1]) < 0)
+			if(myHeap[indexOfValue * 2].compareTo(myHeap[(indexOfValue * 2) + 1]) <= 0)
 			{
 				indexToReturn = indexOfValue * 2;
 			}
@@ -130,5 +135,10 @@ public class Heap<T extends Comparable<T>>
 	private int indexOfParent(int indexOfValue)
 	{
 		return indexOfValue/2;
+	}
+	
+	public int size()
+	{
+		return tailIndex - 1;
 	}
 }

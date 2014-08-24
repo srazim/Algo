@@ -22,7 +22,10 @@ public class AvlTree<T extends Comparable<T>>
 			didOffer = offerHelper(data, root);
 		}
 		
-		checkForBalance(root, null);
+		if(didOffer)
+		{
+			checkForBalance(root, null);
+		}
 		
 		return didOffer;
 		
@@ -111,26 +114,26 @@ public class AvlTree<T extends Comparable<T>>
 	
 	private void rebalance(Node<T> node, Node<T> parent)
 	{
-		if(balanceFactor(node) > 0)
+		if(balanceFactor(node) > 0)//left
 		{
-			if(balanceFactor(node.getLeft()) < 0)
+			if(balanceFactor(node.getLeft()) < 0)//kink
 			{
 				leftRotation(node.getLeft(), node);
 				rightRotation(node, parent);
 			}
-			else
+			else//stick
 			{
 				rightRotation(node, parent);
 			}
 		}
-		else
+		else//right
 		{
-			if(balanceFactor(node.getRight()) > 0)
+			if(balanceFactor(node.getRight()) > 0)//kink
 			{
 				rightRotation(node.getRight(), node);
 				leftRotation(node, parent);
 			}
-			else
+			else//stick
 			{
 				leftRotation(node, parent);
 			}			
@@ -193,18 +196,36 @@ public class AvlTree<T extends Comparable<T>>
 	{
 		Node<T> parent = root;
 		Node<T> temp = root;
+		T data = null;
 		
-		while(temp.getLeft() != null)
+		if(root != null)
 		{
-			parent = temp;
-			temp = temp.getLeft();
+			if(isLeaf(root))
+			{
+				Node<T> toReturn = root;
+				root = null;
+				return toReturn.getData();
+			}
+			
+			while(temp.getLeft() != null)
+			{
+				parent = temp;
+				temp = temp.getLeft();
+			}
+			
+			if(temp == root)
+			{
+				data = temp.getData();
+				root = root.getRight();
+			}
+			parent.setLeft(temp.getRight());
+			
+			data = temp.getData();
+			
+			checkForBalance(root, null);
 		}
 		
-		parent.setLeft(temp.getRight());
-		
-		checkForBalance(root, null);
-		
-		return temp.getData();
+		return data;
 	}
 	
 	public T peek()
@@ -230,7 +251,7 @@ public class AvlTree<T extends Comparable<T>>
 	
 	private void preOrder(Node<T> node)
 	{
-		preOrderString += node.getData().toString();
+		preOrderString += node.getData().toString() + ",";
 		if(node.getLeft() != null)
 		{
 			preOrder(node.getLeft());

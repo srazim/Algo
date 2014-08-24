@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+import algo.razim.edu.AvlBasedPriorityQueue;
+import algo.razim.edu.HeapBasedPriorityQueue;
+
 import edu.neumont.io.Bits;
 
 
@@ -10,7 +13,7 @@ public class HuffmanTree
 	
 	ArrayList<FrequencyNode> nodes = new ArrayList<FrequencyNode>();
 	ArrayList<Byte> bytes = new ArrayList<Byte>();
-	PriorityQueue<FrequencyNode> queuedNodes = new PriorityQueue<FrequencyNode>();
+	HeapBasedPriorityQueue<FrequencyNode> queuedNodes = new HeapBasedPriorityQueue<FrequencyNode>(257);
 	
 	Bits daBits = new Bits();
 	
@@ -23,7 +26,7 @@ public class HuffmanTree
 			temp.bytes.add((byte)(i-128));
 			temp.count = freqs[i];
 			nodes.add(temp);
-			queuedNodes.add(temp);
+			queuedNodes.offer(temp);
 		}
 		
 		buildTree();
@@ -57,7 +60,7 @@ public class HuffmanTree
 		
 		for(int i = 0; i<nodes.size(); i++)
 		{
-			queuedNodes.add(nodes.get(i));
+			queuedNodes.offer(nodes.get(i));
 		}
 	}
 	private void buildTree()
@@ -69,7 +72,7 @@ public class HuffmanTree
 			
 			FrequencyNode combined = new FrequencyNode(leftTemp, rightTemp);
 			
-			queuedNodes.add(combined);
+			queuedNodes.offer(combined);
 		}
 		
 		root = queuedNodes.peek();
@@ -122,7 +125,7 @@ public class HuffmanTree
 				bits.offer(false);
 				fromByteHelper(b, bits, node.left);
 			}
-			if(node.right.bytes.contains(b))
+			else
 			{
 				bits.offer(true);
 				fromByteHelper(b, bits, node.right);

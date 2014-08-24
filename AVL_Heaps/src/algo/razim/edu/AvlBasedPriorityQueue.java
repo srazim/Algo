@@ -23,4 +23,10 @@ public class AvlBasedPriorityQueue<T extends Comparable<T>>
 	{
 		return myTree.size();
 	}
+	
+	@Override
+	public String toString()
+	{
+		return myTree.preOrderToString();
+	}
 }

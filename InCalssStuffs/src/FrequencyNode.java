@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
 
-public class FrequencyNode implements Comparable
+public class FrequencyNode implements Comparable<FrequencyNode>
 {
 	int count = 0;
 	ArrayList<Byte> bytes = new ArrayList<Byte>();
@@ -21,11 +21,12 @@ public class FrequencyNode implements Comparable
 		bytes.addAll(left.bytes);
 		bytes.addAll(right.bytes);
 	}
+
 	@Override
-	public int compareTo(Object arg0) 
+	public int compareTo(FrequencyNode o) 
 	{
-		FrequencyNode temp = (FrequencyNode)arg0;
-				
+		FrequencyNode temp = o;
+		
 		return new Integer(this.count).compareTo(temp.count);
 	}
 }
